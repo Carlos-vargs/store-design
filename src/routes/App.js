@@ -5,6 +5,10 @@ import Home from '../pages/Home'
 import NotFound from '../pages/NotFound';
 import Category from '../pages/Category';
 import Product from '../pages/Product';
+// import Register from '../pages/Register';
+// import Login from '../pages/Login';
+
+
 
 import Layout from '../components/Layout';
 
@@ -13,8 +17,10 @@ export default function App() {
     <BrowserRouter>
       <Layout>
         <Switch>
+          {/* <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Register} /> */}
           <Route exact path="/" component={Home} />
-          <Route exact path="/category" component={Category} />
+          <Route exact path="/products" component={Category} />
           <Route exact path="/product/:id" component={Product} />
           <Route exact path="/404" component={NotFound} />
           <Redirect from="*" to="/404" />

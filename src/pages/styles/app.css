@@ -1,0 +1,9 @@
+.storeImage{
+    background-image: url('https://images.unsplash.com/photo-1604066867775-43f48e3957d8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+    height: 500px;
+    background-size: 100% 100%;
+}
+
+.scrollbarHidden::-webkit-scrollbar{
+    width: 0;
+}
