@@ -23,7 +23,16 @@ const navigation = {
 export default function Header(props) {
 	return (
 		<header className="bg-white shadow">
-			<div className="w-full mx-auto py-6 px-14 ">
+			<div className="bg-gray-100 py-3 flex items-center justify-between px-10">
+				<div className="">
+					current country
+				</div>
+				<div className="flex gap-4">
+				<Link to="/login" >Sing in</Link>
+				<Link to="/register" >Register</Link>
+				</div>
+			</div>
+			<div className="w-full mx-auto py-6 px-10 ">
 				<div className="flex items-center justify-between cursor-pointer text-gray-700" >
 					<Icon />
 					<ul className="flex gap-6 capitalize" >
@@ -45,7 +54,7 @@ export default function Header(props) {
 						<li>search</li>
 						<li>help</li>
 						<li className="w-10 items-center gap-2 flex" >
-							<div className="ml-4 flow-root lg:ml-6">
+							<div className="flow-root">
 								<Link to="#" className="group -m-2 p-2 flex items-center">
 									<ShoppingBagIcon
 										className="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"

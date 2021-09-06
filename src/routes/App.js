@@ -5,8 +5,8 @@ import Home from '../pages/Home'
 import NotFound from '../pages/NotFound';
 import Category from '../pages/Category';
 import Product from '../pages/Product';
-// import Register from '../pages/Register';
-// import Login from '../pages/Login';
+import Register from '../pages/auth/Register';
+import Login from '../pages//auth/Login';
 
 
 
@@ -17,8 +17,9 @@ export default function App() {
     <BrowserRouter>
       <Layout>
         <Switch>
-          {/* <Route exact path="/login" component={Login} />
-          <Route exact path="/register" component={Register} /> */}
+          {/* the routes login and register should have the other layout */}
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Register} />
           <Route exact path="/" component={Home} />
           <Route exact path="/products" component={Category} />
           <Route exact path="/product/:id" component={Product} />
