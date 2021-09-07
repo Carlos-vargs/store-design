@@ -128,21 +128,21 @@ export default function Home() {
                 <div className="flex items-center justify-center gap-12 mt-6" >
 
                     {data.products.map((card) => (
-                            <ProductCard
-                                key={card.id}
-                                id={card.id}
-                                title={card.title}
-                                description={card.description}
-                                price={card.price}
-                                image_url={card.image_url}
-                                image_alt={card.image_alt}
-                            />
+                        <ProductCard
+                            key={card.id}
+                            id={card.id}
+                            title={card.title}
+                            description={card.description}
+                            price={card.price}
+                            image_url={card.image_url}
+                            image_alt={card.image_alt}
+                        />
                     ))}
 
                 </div>
             </div>
             <div className="bg-gray-50 border-t px-10 flex items-center py-28 gap-12" >
-                
+
                 {data.service.map((card) => (
                     <CardService
                         key={card.id}
