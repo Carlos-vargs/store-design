@@ -78,8 +78,9 @@ export default function Category() {
         <div className="flex px-10 justify-center flex-col bg-gray-50" >
             <div className="flex flex-col items-center justify-center gap-4 py-20 " >
                 <h1 className="text-4xl font-extrabold" >New Arrivals</h1>
-                <span className="text-gray-500" >Thoughtfully designed objects for the workspace, home, and travel.</span>
+                <span className="text-gray-500 text-center" >Thoughtfully designed objects for the workspace, home and travel.</span>
                 {/* this link is just for the user that are authenticated, right now itsn't finished  */}
+                
                 <Link to="/create/product" className="capitalize bg-blue-600 py-2 w-40 rounded-lg flex items-center justify-center text-white" >create new product </Link>
             </div>
             <div className="border-t flex justify-between gap-8 flex-wrap py-14" >
