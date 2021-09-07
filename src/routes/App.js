@@ -6,7 +6,8 @@ import NotFound from '../pages/NotFound';
 import Category from '../pages/Category';
 import Product from '../pages/Product';
 import Register from '../pages/auth/Register';
-import Login from '../pages//auth/Login';
+import Login from '../pages/auth/Login';
+import newProduct from '../pages/newProduct';
 
 
 
@@ -18,10 +19,11 @@ export default function App() {
       <Layout>
         <Switch>
           {/* the routes login and register should have the other layout */}
+          <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
-          <Route exact path="/" component={Home} />
           <Route exact path="/products" component={Category} />
+          <Route exact path="/create/product" component={newProduct} />
           <Route exact path="/product/:id" component={Product} />
           <Route exact path="/404" component={NotFound} />
           <Redirect from="*" to="/404" />

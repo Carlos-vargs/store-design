@@ -60,7 +60,7 @@ const data = {
     //the real products come from the api-store
     products: [
         {
-            id: 'a9be9ef-ef49-4b6b-9715-5936fe95320e',
+            id: 'a9be9ef-ef49-9715-5936fe95320e',
             title: "Shoes",
             description: "Nikes shoes",
             price: "50",
@@ -68,7 +68,7 @@ const data = {
             image_alt: "nike shoes",
         },
         {
-            id: 'a9be9ef-ef49-dde433-93e3r15-59tgggbce95320e',
+            id: 'a9be9ef-ef49-93e3r15-59tgggbce95320e',
             title: "Shoes",
             description: "Vans shoes",
             price: "44",
@@ -76,7 +76,7 @@ const data = {
             image_alt: "vans shoes",
         },
         {
-            id: 'a9be9ef-ef49-4b6b-9715-5936fe95320e',
+            id: 'a9-9715-5936fe95320e',
             title: "Shoes",
             description: "Nikes shoes",
             price: "65",
@@ -84,7 +84,7 @@ const data = {
             image_alt: "nike shoes",
         },
         {
-            id: 'a9be9ef-ef49-dde433-93e3r15-59tgggbce95320e',
+            id: 'a9be9ef-efe433-93e3r15-59tgggbce95320e',
             title: "Shoes",
             description: "Nike shoes",
             price: "30",
@@ -128,16 +128,15 @@ export default function Home() {
                 <div className="flex items-center justify-center gap-12 mt-6" >
 
                     {data.products.map((card) => (
-                        <Link to={`/product/${card.id}`}>
                             <ProductCard
                                 key={card.id}
+                                id={card.id}
                                 title={card.title}
                                 description={card.description}
                                 price={card.price}
                                 image_url={card.image_url}
                                 image_alt={card.image_alt}
                             />
-                        </Link>
                     ))}
 
                 </div>
