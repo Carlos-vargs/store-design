@@ -1,7 +1,7 @@
 import React from 'react';
 import Icon from './AppIcon';
-import { ShoppingBagIcon, } from '@heroicons/react/outline';
 import { Link } from 'react-router-dom';
+import MenuShopping from './MenuShopping';
 
 const navigation = {
 	categories: [
@@ -28,8 +28,8 @@ export default function Header(props) {
 					current country
 				</div>
 				<div className="flex gap-4">
-				<Link to="/login" >Sing in</Link>
-				<Link to="/register" >Register</Link>
+					<Link to="/login" >Sing in</Link>
+					<Link to="/register" >Register</Link>
 				</div>
 			</div>
 			<div className="w-full mx-auto py-6 px-10 ">
@@ -49,20 +49,21 @@ export default function Header(props) {
 							</li>
 						))}
 					</ul>
-					
+
 					<ul className="flex items-center gap-6 capitalize cursor-pointer text-gray-700" >
 						<li>search</li>
 						<li>help</li>
 						<li className="w-10 items-center gap-2 flex" >
 							<div className="flow-root">
-								<Link to="#" className="group -m-2 p-2 flex items-center">
+								{/* <Link to="#" className="group -m-2 p-2 flex items-center">
 									<ShoppingBagIcon
 										className="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
 										aria-hidden="true"
 									/>
 									<span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
 									<span className="sr-only">items in the shopping car, view bag</span>
-								</Link>
+								</Link> */}
+								<MenuShopping />
 							</div>
 						</li>
 					</ul>

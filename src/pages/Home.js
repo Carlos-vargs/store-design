@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRightIcon, } from '@heroicons/react/outline';
 import ProductCard from '../components/ProductCard';
@@ -6,7 +6,7 @@ import CardCollection from '../components/Home/CardCollection';
 import CardService from '../components/Home/CardService';
 import './styles/app.css'
 
-const data = {
+const nav = {
     categories: [
         {
             id: 'fe658605-4cfa-4a99-a845-d66bcd1c0d7',
@@ -56,54 +56,62 @@ const data = {
             paragraph: "We've pledged 1% of sales to the preservation and restoration of the natural environment.",
         },
     ],
-    //temporary product for testing only
-    //the real products come from the api-store
-    products: [
-        {
-            id: 'a9be9ef-ef49-9715-5936fe95320e',
-            title: "Shoes",
-            description: "Nikes shoes",
-            price: "50",
-            image_url: "https://images.unsplash.com/photo-1491553895911-0055eca6402d?,ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
-            image_alt: "nike shoes",
-        },
-        {
-            id: 'a9be9ef-ef49-93e3r15-59tgggbce95320e',
-            title: "Shoes",
-            description: "Vans shoes",
-            price: "44",
-            image_url: "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=343&q=80",
-            image_alt: "vans shoes",
-        },
-        {
-            id: 'a9-9715-5936fe95320e',
-            title: "Shoes",
-            description: "Nikes shoes",
-            price: "65",
-            image_url: "https://images.unsplash.com/photo-1543508282-6319a3e2621f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=358&q=80",
-            image_alt: "nike shoes",
-        },
-        {
-            id: 'a9be9ef-efe433-93e3r15-59tgggbce95320e',
-            title: "Shoes",
-            description: "Nike shoes",
-            price: "30",
-            image_url: "https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80",
-            image_alt: "nike shoes",
-        },
-    ],
 }
 
 export default function Home() {
+
+    const [data, setData] = useState({
+        loading: true,
+        error: null,
+        products: [],
+    });
+
+
+    useEffect(() => {
+        fetchProducts()
+    }, [])
+
+    async function fetchProducts() {
+        setData({
+            loading: true,
+            error: null,
+            products: [],
+        })
+        try {
+            const data = await fetch('http://localhost:8000/api/v1/products')
+            const response = await data.json()
+
+            setData({
+                loading: false,
+                error: null,
+                products: response.data,
+            })
+
+        } catch (error) {
+            setData({
+                loading: false,
+                error: error,
+            })
+        }
+
+    }
+
+    if (data.error) {
+        return (`Error: ${data.error.message}`)
+    }
+
+    const cheapest = data.products.sort((a, b) =>  a.price - b.price).slice(0,4)
+    
+
     return (
         <React.Fragment>
             <div className="border-t">
                 <div className="bg-white w-full">
                     <div className="storeImage w-full object-cover	bg-fixed bg-no-repeat flex-col flex items-center" >
                         <h1 className="text-white font-bold	capitalize text-6xl mt-20" >mid-season sale</h1>
-                        <Link to="/products" className="bg-blue-700 w-40 rounded-md mt-4 p-2.5 flex justify-center text-white" >shop collection</Link>
+                        <Link to="/products" className="bg-blue-700 w-40 rounded-md mt-4 p-2.5 flex justify-center items-center text-center text-white" >shop collection</Link>
                         <div className="flex items-center justify-center gap-10 mt-10 text-white " >
-                            {data.categories.map((card) => (
+                            {nav.categories.map((card) => (
                                 <CardCollection
                                     key={card.id}
                                     title={card.title}
@@ -127,7 +135,7 @@ export default function Home() {
                 </div>
                 <div className="flex items-center justify-center gap-12 mt-6" >
 
-                    {data.products.map((card) => (
+                    {cheapest.map((card) => (
                         <ProductCard
                             key={card.id}
                             id={card.id}
@@ -135,7 +143,7 @@ export default function Home() {
                             description={card.description}
                             price={card.price}
                             image_url={card.image_url}
-                            image_alt={card.image_alt}
+                            image_alt={card.title}
                         />
                     ))}
 
@@ -143,7 +151,7 @@ export default function Home() {
             </div>
             <div className="bg-gray-50 border-t px-10 flex items-center py-28 gap-12" >
 
-                {data.service.map((card) => (
+                {nav.service.map((card) => (
                     <CardService
                         key={card.id}
                         icon={card.icon}
