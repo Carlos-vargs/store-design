@@ -5,6 +5,7 @@ import ProductCard from '../components/ProductCard';
 import CardCollection from '../components/Home/CardCollection';
 import CardService from '../components/Home/CardService';
 import './styles/app.css'
+import Header from '../components/Header'
 
 const nav = {
     categories: [
@@ -105,6 +106,7 @@ export default function Home() {
 
     return (
         <React.Fragment>
+            <Header />
             <div className="border-t">
                 <div className="bg-white w-full">
                     <div className="storeImage w-full object-cover	bg-fixed bg-no-repeat flex-col flex items-center" >
