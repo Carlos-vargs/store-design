@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 // import ProductCard from '../components/ProductCard';
 import { HeartIcon } from '@heroicons/react/solid'
-import './styles/app.css'
-import Header from '../components/Header'
+import '../styles/app.css'
+import Layout from '../../components/public/Layout';
 
 export default function Product() {
 
@@ -51,8 +51,7 @@ export default function Product() {
     }
 
     return (
-        <React.Fragment>
-            <Header currentProduct={data.ProductInTheBag} />
+        <Layout currentProduct={data.ProductInTheBag} >
             <div className="px-10 w-full" >
                 <div className="border-t border-b pt-16 grid grid-cols-2 gap-8" >
                     <div className="flex flex-col justify-start">
@@ -97,6 +96,6 @@ export default function Product() {
                     </div>
                 </div>
             </div>
-        </React.Fragment >
+        </Layout >
     );
 }

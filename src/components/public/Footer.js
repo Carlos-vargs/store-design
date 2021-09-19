@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Icon from './AppIcon';
+import Logo from '../app/Logo';
 
 const navigation = {
     products: [
@@ -108,7 +108,7 @@ export default function Footer() {
         <footer className="bg-gray-50 w-full px-10 flex flex-col justify-center" >
             <div className="border-t py-20 border-b flex justify-between cursor-pointer" >
                 <div className="flex items-start text-gray-400 gap-20" >
-                    <Icon />
+                    <Logo />
                     <ul className="flex flex-col gap-6 capitalize" >
                         <li className="text-gray-700">products</li>
                         {navigation.products.map((product) => (

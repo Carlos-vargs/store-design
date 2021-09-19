@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, } from 'react-router-dom';
-import ProductCard from '../components/ProductCard';
-import Header from '../components/Header'
+import Layout from '../../components/public/Layout';
+import ProductCard from '../../components/public/ProductCard';
 
 
 export default function Category() {
@@ -48,8 +48,7 @@ export default function Category() {
 
 
     return (
-        <React.Fragment>
-            <Header />
+        <Layout>
             <div className="flex px-10 justify-center flex-col bg-gray-50" >
                 <div className="flex flex-col items-center justify-center gap-4 py-20 " >
                     <h1 className="text-4xl font-extrabold" >New Arrivals</h1>
@@ -72,7 +71,7 @@ export default function Category() {
                     ))}
                 </div>
             </div>
-        </React.Fragment>
+        </Layout>
     );
 }
 

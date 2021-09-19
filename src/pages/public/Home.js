@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRightIcon, } from '@heroicons/react/outline';
-import ProductCard from '../components/ProductCard';
-import CardCollection from '../components/Home/CardCollection';
-import CardService from '../components/Home/CardService';
-import './styles/app.css'
-import Header from '../components/Header'
+import ProductCard from '../../components/public/ProductCard';
+import CardService from '../../components/public/Home/CardService';
+import CardCollection from '../../components/public/Home/CardCollection';
+import Layout from '../../components/public/Layout';
+import '../styles/app.css'
 
 const nav = {
     categories: [
@@ -105,15 +105,14 @@ export default function Home() {
     
 
     return (
-        <React.Fragment>
-            <Header />
+        <Layout>
             <div className="border-t">
                 <div className="bg-white w-full">
                     <div className="storeImage w-full object-cover	bg-fixed bg-no-repeat flex-col flex items-center" >
                         <h1 className="text-white font-bold	capitalize text-6xl mt-20" >mid-season sale</h1>
                         <Link to="/products" className="bg-blue-700 w-40 rounded-md mt-4 p-2.5 flex justify-center items-center text-center text-white" >shop collection</Link>
                         <div className="flex items-center justify-center gap-10 mt-10 text-white " >
-                            {nav.categories.map((card) => (
+                            {nav.categories.map(card => (
                                 <CardCollection
                                     key={card.id}
                                     title={card.title}
@@ -137,7 +136,7 @@ export default function Home() {
                 </div>
                 <div className="flex items-center justify-center gap-12 mt-6" >
 
-                    {cheapest.map((card) => (
+                    {cheapest.map(card => (
                         <ProductCard
                             key={card.id}
                             id={card.id}
@@ -153,7 +152,7 @@ export default function Home() {
             </div>
             <div className="bg-gray-50 border-t px-10 flex items-center py-28 gap-12" >
 
-                {nav.service.map((card) => (
+                {nav.service.map(card => (
                     <CardService
                         key={card.id}
                         icon={card.icon}
@@ -163,6 +162,6 @@ export default function Home() {
                 ))}
 
             </div>
-        </React.Fragment>
+        </Layout>
     );
 }

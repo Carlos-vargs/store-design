@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import Icon from './AppIcon';
+import React from 'react';
+import Logo from '../app/Logo';
 import { Link } from 'react-router-dom';
 import MenuShopping from './MenuShopping';
 
@@ -37,7 +37,7 @@ export default function Header({ currentProduct }) {
 				</div>
 				<div className="w-full mx-auto py-6 px-10 ">
 					<div className="flex items-center justify-between cursor-pointer text-gray-700" >
-						<Icon />
+						<Logo />
 						<ul className="flex gap-6 capitalize" >
 							{navigation.categories.map((category) => (
 								<li key={category.id}>
