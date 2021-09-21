@@ -21,7 +21,6 @@ class User extends Authenticatable
         'first_name',
         'last_name',
         'email',
-        'password',
     ];
 
     /**
@@ -53,4 +52,13 @@ class User extends Authenticatable
         return $this->hasMany(Product::class);
     }
 
+    /**
+     * The shopping that belong to the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function shopping()
+    {
+        return $this->belongsToMany(User::class, 'user_shoppings', 'user_id', 'buying_id');
+    }
 }

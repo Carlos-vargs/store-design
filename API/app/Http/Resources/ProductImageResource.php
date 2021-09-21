@@ -14,7 +14,7 @@ class ProductImageResource extends JsonResource
      */
     public function toArray($request)
     {
-        return $this->image;
+        return ('http://localhost:8000/storage/'.$this->image);
            
     }
 }

@@ -20,7 +20,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return ProductResource::collection(Product::paginate()); 
+        return ProductResource::collection(Product::paginate());
     }
 
     /**
@@ -32,20 +32,18 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         $request->validated();
-        
+
         $product = Auth::user()->products()->create($request->all());
-        
+
         $url_image = $request->file('image');
 
         $image = $url_image->store('product', 'public');
-        
+
         $product->productImages()->create(compact('image'));
-            
+
         return response([
             'message' => 'Product created succesfully'
         ], 201);
-    
-        
     }
 
 
@@ -57,7 +55,9 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        return Product::find($id);   
+        $product = Product::findOrFail($id);
+
+        return ProductResource::make($product);
     }
 
     /**
@@ -79,7 +79,6 @@ class ProductController extends Controller
             'Product' => $product,
             'message' => 'Product updated succesfully'
         ];
-
     }
 
     /**
@@ -90,8 +89,8 @@ class ProductController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        
-        $product = Product::find($id);
+
+        $product = Product::findOrFail($id);
 
         $this->authorize('author', $product);
 
@@ -100,8 +99,6 @@ class ProductController extends Controller
         return [
             'message' => 'Product deleted succesfully'
         ];
-
-
     }
 
     /**
@@ -112,7 +109,17 @@ class ProductController extends Controller
      */
     public function search($title)
     {
-       return Product::where('title', 'like', '%'.$title.'%')->get();
+        return Product::where('title', 'like', '%' . $title . '%')->get();
     }
 
+    public function buy($id)
+    {
+        $product = Product::findOrFail($id);
+        
+        Auth::user()->shopping()->attach($product);
+
+        return response([
+            'message' => 'Successful purchase'
+        ], 200);
+    }
 }
