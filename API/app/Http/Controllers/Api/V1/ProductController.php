@@ -118,6 +118,8 @@ class ProductController extends Controller
         
         Auth::user()->shopping()->attach($product);
 
+        //just need the timestamps and add any description, These changes i will add in the next push
+
         return response([
             'message' => 'Successful purchase'
         ], 200);
