@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import '../../pages/styles/app.css'
 
 export default function MenuShopping({ currentProduct }) {
+
+
     return (
         <Fragment>
             <div className="text-right">

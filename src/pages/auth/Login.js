@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default function Login() {
+export default function login() {
     return (
-        <div>
-            Login form 
+        <div className="text-red-500">
+            login
         </div>
-    );
+    )
 }
