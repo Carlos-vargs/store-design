@@ -1,21 +1,19 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Input from './Input';
+import LinkForms from './LinkForms';
 
 export default function RegisterForm({ onChange, onSubmit, formValues, children }) {
 
-    console.log(formValues['first_name']);
-
     return (
         <React.Fragment>
-            <form onSubmit={onSubmit}  className="mt-8 space-y-6">                
+            <form onSubmit={onSubmit} className="mt-8 space-y-6">
                 <Input
                     title={'First Name'}
                     name={'first_name'}
                     type={'text'}
                     placeholder={'First Name'}
                     autocomplete={'name'}
-                    value={formValues['first_name']}
+                    value={formValues.first_name}
                     onChange={onChange}
                 />
                 <Input
@@ -24,7 +22,7 @@ export default function RegisterForm({ onChange, onSubmit, formValues, children 
                     type={'text'}
                     placeholder={'Last Name'}
                     autocomplete={'family-name'}
-                    value={formValues['last_name']}
+                    value={formValues.last_name}
                     onChange={onChange}
                 />
                 <Input
@@ -33,7 +31,7 @@ export default function RegisterForm({ onChange, onSubmit, formValues, children 
                     type={'email'}
                     placeholder={'user@gmail.com'}
                     autocomplete={'email'}
-                    value={formValues['email']}
+                    value={formValues.email}
                     onChange={onChange}
                 />
                 <Input
@@ -42,7 +40,7 @@ export default function RegisterForm({ onChange, onSubmit, formValues, children 
                     type={'password'}
                     placeholder={'Enter your password'}
                     autocomplete={'current-password'}
-                    value={formValues['password']}
+                    value={formValues.password}
                     onChange={onChange}
                 />
                 <Input
@@ -51,7 +49,7 @@ export default function RegisterForm({ onChange, onSubmit, formValues, children 
                     type={'password'}
                     autocomplete={'new-password'}
                     placeholder={'Confirm your password'}
-                    value={formValues['password_confirmation']}
+                    value={formValues.password_confirmation}
                     onChange={onChange}
                 />
                 <div className="flex items-center justify-between">
@@ -59,10 +57,11 @@ export default function RegisterForm({ onChange, onSubmit, formValues, children 
                 <div>
                     {children}
                 </div>
-                <span className="flex flex-col items-center justify-center mt-10 text-center text-md text-gray-500">
-                    <span>Do you already have an account?</span>
-                    <Link to="/login" className="text-indigo-400 hover:text-blue-500 no-underline hover:underline cursor-pointer transition ease-in duration-300">Sign up</Link>
-                </span>
+                <LinkForms
+                    title={'Do you already have an account?'}
+                    title_url={'Sign up'}
+                    url={'/login'}
+                />
             </form>
         </React.Fragment>
     );

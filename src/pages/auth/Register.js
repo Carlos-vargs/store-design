@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import RegisterForm from '../../components/auth/RegisterForm';
-import SocialNetworks from '../../components/auth/SocialNetworks';
 import ButtonLog from '../../components/auth/ButtonLog'
 import Animation from '../../components/auth/Animation';
-import HeaderForm from '../../components/auth/HeaderForm';
-import NetworksOption from '../../components/auth/NetworksOption';
+import ContainerHeader from '../../components/auth/ContainerHeader';
 
 
 export default function Register() {
@@ -67,16 +65,7 @@ export default function Register() {
                     <Animation />
                     <div className="md:flex md:items-center md:justify-center w-full sm:w-auto md:h-full w-2/5 xl:w-2/5 p-8  md:p-10 lg:p-14 sm:rounded-lg md:rounded-none bg-white">
                         <div className="max-w-md w-full space-y-8">
-                        <HeaderForm
-                            title={'Create an Account!'}
-                            subtitle={'Fill the form & Sign Up'}
-                        />
-                            <NetworksOption />
-                            <div className="flex items-center justify-center space-x-2">
-                                <span className="h-px w-16 bg-gray-200"></span>
-                                <span className="text-gray-300 font-normal">or continue with</span>
-                                <span className="h-px w-16 bg-gray-200"></span>
-                            </div>
+                            <ContainerHeader />
                             <RegisterForm
                                 onChange={handleChange}
                                 onSubmit={handleSubmit}

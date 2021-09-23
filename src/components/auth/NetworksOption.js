@@ -16,6 +16,7 @@ export default function NetworksOption() {
                 }
                 color={'bg-blue-900'}
                 url={'https://www.facebook.com'}
+                title={'Facebook'}
             />
             <SocialNetworks
                 icon={
@@ -36,6 +37,7 @@ export default function NetworksOption() {
                 }
                 color={'bg-blue-400'}
                 url={'https://www.twitter.com'}
+                title={'Twitter'}
             />
             <SocialNetworks
                 icon={
@@ -67,6 +69,7 @@ export default function NetworksOption() {
                 color={'bg-white'}
                 border={'border'}
                 url={'https://google.com'}
+                title={'Google'}
             />
         </div>
     );
