@@ -1,11 +1,10 @@
-import React,{ Fragment, useEffect } from 'react';
+import React,{ Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react'
 import { ShoppingBagIcon } from '@heroicons/react/outline'
 import { Link } from 'react-router-dom';
 import '../../pages/styles/app.css'
 
 export default function MenuShopping({ currentProduct }) {
-    
 
     return (
         <Fragment>

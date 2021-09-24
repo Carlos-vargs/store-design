@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import LoginForm from '../../components/auth/LoginForm';
 import ButtonLog from '../../components/auth/ButtonLog'
 import Animation from '../../components/auth/Animation';
 import ContainerHeader from '../../components/auth/ContainerHeader';
+import { Redirect } from 'react-router';
 
 
 export default function Login() {
@@ -13,7 +14,8 @@ export default function Login() {
         form: {
             email: "",
             password: "",
-        }
+        },
+        redirect: false
     });
 
 
@@ -28,6 +30,10 @@ export default function Login() {
 
     const handleSubmit = async e => {
 
+        setState({...state ,loading: true, })
+
+        console.log(state);
+
         e.preventDefault()
 
         try {
@@ -37,8 +43,7 @@ export default function Login() {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': ('meta[name="csrf-token"]').attr('content')
+                    // 'X-CSRF-TOKEN': ('meta[name="csrf-token"]').attr('content')
                 },
                 body: state.form,
             }
@@ -46,25 +51,23 @@ export default function Login() {
             let res = await fetch('http://localhost:8000/api/login', config)
             let json = await res.json()
 
-            console.log(json);
-            setState({ loading: true, })
+            localStorage.setItem('token', JSON.stringify(json))
+
+            setState({ loading: false, error: null, redirect: true })
 
 
         } catch (error) {
-            setState({ loading: false, error: error })
+            setState({ ...state, loading: false, error: error, })
+
         }
     }
 
-    if (state.loading) {
-        return (
-            <div>
-                sending data...
-            </div>
-        )
+    if (state.redirect) {
+        return <Redirect to="/" />
     }
 
     return (
-        <React.Fragment>
+        <Fragment>
             <div className="relative min-h-screen flex ">
                 <div className="flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-auto min-w-0 bg-white">
                     <Animation />
@@ -86,6 +89,6 @@ export default function Login() {
                     </div>
                 </div>
             </div>
-        </React.Fragment>
+        </Fragment>
     );
 }

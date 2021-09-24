@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import RegisterForm from '../../components/auth/RegisterForm';
 import ButtonLog from '../../components/auth/ButtonLog'
 import Animation from '../../components/auth/Animation';
 import ContainerHeader from '../../components/auth/ContainerHeader';
+import { Redirect } from 'react-router';
 
 
 export default function Register() {
@@ -16,7 +17,8 @@ export default function Register() {
             email: "",
             password: "",
             password_confirmation: "",
-        }
+        },
+        redirect: false
     });
 
 
@@ -33,33 +35,39 @@ export default function Register() {
 
         e.preventDefault()
 
+        setState({...state ,loading: true, })
+        
+        console.log(state);
+
         try {
 
             let config = {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': ('meta[name="csrf-token"]').attr('content')
+                    // 'X-CSRF-TOKEN': ('meta[name="csrf-token"]').attr('content')
                 },
-                body: state.form,
+                body: JSON.stringify(state.form),
             }
 
             let res = await fetch('http://localhost:8000/api/register', config)
             let json = await res.json()
 
-            console.log(json);
+            localStorage.setItem('token', JSON.stringify(json))
 
-            setState({ loading: false })
+            setState({ loading: false, error: null, redirect: true })
 
         } catch (error) {
-            setState({ loading: false, error: error })
+            setState({ ...state, loading: false, error: error })
         }
     }
 
+    if (state.redirect) {
+        return <Redirect to="/" />
+    }
 
     return (
-        <React.Fragment>
+        <Fragment>
             <div className="relative min-h-screen flex ">
                 <div className="flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-auto min-w-0 bg-white">
                     <Animation />
@@ -81,6 +89,6 @@ export default function Register() {
                     </div>
                 </div>
             </div>
-        </React.Fragment>
+        </Fragment>
     );
 }
