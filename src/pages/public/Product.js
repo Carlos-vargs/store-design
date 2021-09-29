@@ -5,6 +5,9 @@ import { HeartIcon } from '@heroicons/react/solid'
 import '../styles/app.css'
 import Layout from '../../components/public/Layout';
 
+let oldBag = JSON.parse(localStorage.getItem('bag'))
+
+
 export default function Product() {
 
     const { id } = useParams()
@@ -13,7 +16,6 @@ export default function Product() {
         loading: true,
         error: null,
         product: [],
-        ProductInTheBag: [],
     });
 
 
@@ -46,12 +48,21 @@ export default function Product() {
 
     }
 
+    function reload(){window.location.reload(true)}
+
+    function setItemToLocalStorage(newProduct) {
+
+        localStorage.setItem('bag', JSON.stringify([...oldBag, newProduct]))
+
+        reload()
+    }
+
     if (data.error) {
         return (`Error: ${data.error.message}`)
     }
 
     return (
-        <Layout currentProduct={data.ProductInTheBag} >
+        <Layout>
             <div className="px-10 w-full" >
                 <div className="border-t border-b pt-16 grid grid-cols-2 gap-8" >
                     <div className="flex flex-col justify-start">
@@ -66,7 +77,7 @@ export default function Product() {
                             <span>rate</span>
                             <p className="text-lg text-gray-500	" >{data.product.description}</p>
                             <div className="flex items-center gap-4 mt-6 cursor-pointer " >
-                            <button className="bg-blue-600 px-5 py-3 text-white rounded-lg w-2/4 text-center" onClick={() => setData({...data,  ProductInTheBag: data.product,})} >Add to bag</button>
+                            <button className="bg-blue-600 px-5 py-3 text-white rounded-lg w-2/4 text-center" onClick={() => setItemToLocalStorage(data.product)} >Add to bag</button>
                             <HeartIcon 
                                 className="w-6 h-6 text-red-400"
                             />

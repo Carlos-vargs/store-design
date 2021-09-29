@@ -6,6 +6,7 @@ import ContainerHeader from '../../components/auth/ContainerHeader';
 import { Redirect } from 'react-router';
 
 
+
 export default function Register() {
 
     const [state, setState] = useState({
@@ -18,7 +19,7 @@ export default function Register() {
             password: "",
             password_confirmation: "",
         },
-        redirect: false
+        redirect: false,
     });
 
 
@@ -27,7 +28,7 @@ export default function Register() {
             form: {
                 ...state.form,
                 [e.target.name]: e.target.value
-            }
+            },
         })
     }
 
@@ -35,8 +36,8 @@ export default function Register() {
 
         e.preventDefault()
 
-        setState({...state ,loading: true, })
-        
+        setState({ ...state, loading: true, })
+
         console.log(state);
 
         try {
@@ -45,7 +46,9 @@ export default function Register() {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
-                    // 'X-CSRF-TOKEN': ('meta[name="csrf-token"]').attr('content')
+                    'Content-Type': 'application/json',
+                    // 'X-CSRF-TOKEN': ,
+
                 },
                 body: JSON.stringify(state.form),
             }
@@ -58,7 +61,7 @@ export default function Register() {
             setState({ loading: false, error: null, redirect: true })
 
         } catch (error) {
-            setState({ ...state, loading: false, error: error })
+            setState({ ...state, loading: false, error: error, redirect: false })
         }
     }
 
@@ -73,7 +76,7 @@ export default function Register() {
                     <Animation />
                     <div className="md:flex md:items-center md:justify-center w-full sm:w-auto md:h-full w-2/5 xl:w-2/5 p-8  md:p-10 lg:p-14 sm:rounded-lg md:rounded-none bg-white">
                         <div className="max-w-md w-full space-y-8">
-                            <ContainerHeader />
+                            <ContainerHeader register={true} />
                             <RegisterForm
                                 onChange={handleChange}
                                 onSubmit={handleSubmit}

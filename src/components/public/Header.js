@@ -21,7 +21,7 @@ const navigation = {
 }
 
 
-export default function Header({ currentProduct }) {
+export default function Header() {
 
 	return (
 		<React.Fragment>
@@ -66,7 +66,7 @@ export default function Header({ currentProduct }) {
 									<span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
 									<span className="sr-only">items in the shopping car, view bag</span>
 								</Link> */}
-									<MenuShopping currentProduct={currentProduct} />
+									<MenuShopping />
 								</div>
 							</li>
 						</ul>

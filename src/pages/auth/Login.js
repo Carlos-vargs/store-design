@@ -8,6 +8,7 @@ import { Redirect } from 'react-router';
 
 export default function Login() {
 
+
     const [state, setState] = useState({
         loading: false,
         error: null,
@@ -30,7 +31,7 @@ export default function Login() {
 
     const handleSubmit = async e => {
 
-        setState({...state ,loading: true, })
+        setState({ ...state, loading: true, })
 
         console.log(state);
 
@@ -38,14 +39,14 @@ export default function Login() {
 
         try {
 
-
             let config = {
                 method: 'POST',
                 headers: {
+                    'Content-Type': 'application/json',
                     'Accept': 'application/json',
-                    // 'X-CSRF-TOKEN': ('meta[name="csrf-token"]').attr('content')
+                    // 'X-CSRF-TOKEN': token
                 },
-                body: state.form,
+                body: JSON.stringify(state.form),
             }
 
             let res = await fetch('http://localhost:8000/api/login', config)
@@ -57,6 +58,7 @@ export default function Login() {
 
 
         } catch (error) {
+
             setState({ ...state, loading: false, error: error, })
 
         }
@@ -73,7 +75,7 @@ export default function Login() {
                     <Animation />
                     <div className="md:flex md:items-center md:justify-center w-full sm:w-auto md:h-full w-2/5 xl:w-2/5 p-8  md:p-10 lg:p-14 sm:rounded-lg md:rounded-none bg-white">
                         <div className="max-w-md w-full space-y-8">
-                            <ContainerHeader />
+                            <ContainerHeader register={false} />
                             <LoginForm
                                 onChange={handleChange}
                                 onSubmit={handleSubmit}

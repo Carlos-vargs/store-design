@@ -4,10 +4,9 @@ import LinkForms from './LinkForms';
 
 export default function LoginForm({ onChange, onSubmit, formValues, children }) {
 
-
     return (
         <React.Fragment>
-            <form onSubmit={onSubmit}  className="mt-8 space-y-6">                
+            <form onSubmit={onSubmit} className="mt-8 space-y-6">
                 <Input
                     title={'Email'}
                     name={'email'}
@@ -31,7 +30,7 @@ export default function LoginForm({ onChange, onSubmit, formValues, children }) 
                 <div>
                     {children}
                 </div>
-                <LinkForms 
+                <LinkForms
                     title={'You do not have an account?'}
                     title_url={'create account'}
                     url={'/register'}
