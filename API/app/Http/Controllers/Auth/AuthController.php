@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Http\Requests\Auth\RegisterRequest;
-use App\Http\Requests\Auth\LoginRequest;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -25,12 +25,12 @@ class AuthController extends Controller
         ]);
 
         $token = $user->createToken('myapptoken')->plainTextToken;
-        
+
         $response = [
             'user' => $user,
-            'token' => $token  
+            'token' => $token,
         ];
-        
+
         return response($response, 201);
 
     }
@@ -41,7 +41,7 @@ class AuthController extends Controller
         auth()->user()->tokens()->delete();
 
         return [
-            'message' => 'logged out'
+            'message' => 'logged out',
         ];
     }
 
@@ -49,23 +49,28 @@ class AuthController extends Controller
     {
         $fields = $request->validated();
 
-        //check email 
+        //check email
         $user = User::where('email', $fields['email'])->first();
 
-        //check password 
-        if (!$user || !Hash::check($fields['password'], $user->password) ) {
+        //check password
+        if (!$user) {
             return response([
-                'message' => 'Bad creds'
+                'message' => 'Invalid email',
+            ], 401);
+
+        } elseif (!Hash::check($fields['password'], $user->password)) {
+            return response([
+                'message' => 'Invalid password',
             ], 401);
         }
 
         $token = $user->createToken('myapptoken')->plainTextToken;
-        
+
         $response = [
             'user' => $user,
-            'token' => $token, 
+            'token' => $token,
         ];
-        
+
         return response($response, 201);
 
     }
