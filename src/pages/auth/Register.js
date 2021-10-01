@@ -1,11 +1,10 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import RegisterForm from '../../components/auth/RegisterForm';
 import ButtonLog from '../../components/auth/ButtonLog'
 import Animation from '../../components/auth/Animation';
 import ContainerHeader from '../../components/auth/ContainerHeader';
 import { Redirect } from 'react-router';
-
-
+import getCookie from '../../components/auth/helpers/getCookie';
 
 export default function Register() {
 
@@ -32,6 +31,12 @@ export default function Register() {
         })
     }
 
+
+    useEffect(() => {
+        fetch('http://localhost:8000/sanctum/csrf-cookie')
+    }, []);
+
+
     const handleSubmit = async e => {
 
         e.preventDefault()
@@ -47,8 +52,7 @@ export default function Register() {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
-                    // 'X-CSRF-TOKEN': ,
-
+                    'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
                 },
                 body: JSON.stringify(state.form),
             }

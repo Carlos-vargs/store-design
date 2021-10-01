@@ -5,7 +5,23 @@ import { Link } from 'react-router-dom';
 import '../../pages/styles/app.css'
 import ItemShopping from '../private/ItemShopping';
 
-let productsInTheBag = JSON.parse(localStorage.getItem('bag'))
+const productsInTheBag = JSON.parse(localStorage.getItem('bag'))
+
+// const uniqueId = []
+
+// productsInTheBag.forEach(e => uniqueId.push(e.id));
+
+// const result = uniqueId.filter((item, index) => {
+//     return uniqueId.indexOf(item) === index;
+// })
+
+// console.log(result);
+
+// let hash = {};
+// const data = productsInTheBag.filter(o => hash[o.id] ? false : hash[o.id] = true);
+// console.log(data);
+
+
 
 export default function MenuShopping() {
 

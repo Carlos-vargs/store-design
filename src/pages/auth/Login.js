@@ -4,6 +4,7 @@ import ButtonLog from '../../components/auth/ButtonLog'
 import Animation from '../../components/auth/Animation';
 import ContainerHeader from '../../components/auth/ContainerHeader';
 import { Redirect } from 'react-router';
+import getCookie from '../../components/auth/helpers/getCookie';
 
 
 export default function Login() {
@@ -33,8 +34,6 @@ export default function Login() {
 
         setState({ ...state, loading: true, })
 
-        console.log(state);
-
         e.preventDefault()
 
         try {
@@ -44,7 +43,7 @@ export default function Login() {
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
-                    // 'X-CSRF-TOKEN': token
+                    'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
                 },
                 body: JSON.stringify(state.form),
             }
@@ -59,7 +58,7 @@ export default function Login() {
 
         } catch (error) {
 
-            setState({ ...state, loading: false, error: error, })
+            setState({ ...state, loading: false, error: error, redirect:false})
 
         }
     }

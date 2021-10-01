@@ -46,6 +46,9 @@ export default function newProduct() {
             }
 
             let res = await fetch('http://localhost:8000/api/v1/products', config)
+            let json = await res.json()
+
+            console.log(json);
 
             setState({ loading: false, error: null, redirect: true })
 
