@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { Link, } from 'react-router-dom';
 import Layout from '../../components/public/Layout';
 import ProductCard from '../../components/public/ProductCard';
+import NoProductsFound from '../../components/public/NoProductsFound';
 
 
 export default function Category() {
+
+    // const user = JSON.parse(localStorage.getItem('user'))
+
+    const user = {}
+
 
     const [data, setData] = useState({
         loading: true,
@@ -24,13 +31,12 @@ export default function Category() {
             products: [],
         })
         try {
-            const data = await fetch('http://localhost:8000/api/v1/products')
-            const response = await data.json()
+            const response = await axios.get('http://localhost:8000/api/v1/products')
 
             setData({
                 loading: false,
                 error: null,
-                products: response.data,
+                products: response.data.data,
             })
 
         } catch (error) {
@@ -53,11 +59,9 @@ export default function Category() {
                 <div className="flex flex-col items-center justify-center gap-4 py-20 " >
                     <h1 className="text-4xl font-extrabold" >New Arrivals</h1>
                     <span className="text-gray-500 text-center" >Thoughtfully designed objects for the workspace, home and travel.</span>
-                    {/* this link is just for the user that are authenticated, right now itsn't finished  */}
-
-                    <Link to="/create/product" className="capitalize bg-blue-600 py-2 w-40 rounded-lg flex items-center justify-center text-white" >create new product </Link>
+                    {user.token && <Link to="/create/product" className="capitalize bg-blue-600 py-2 w-40 rounded-lg flex items-center justify-center text-white text-center" >create new product </Link>}
                 </div>
-                <div className="border-t flex justify-between gap-8 flex-wrap py-14" >
+                {data.products.length !== 0 && <div className="border-t flex justify-between gap-8 flex-wrap py-14" >
                     {data.products.map((card) => (
                         <ProductCard
                             key={card.id}
@@ -68,8 +72,10 @@ export default function Category() {
                             image_url={card.image_url}
                             image_alt={card.image_alt}
                         />
-                    ))}
-                </div>
+                    ))
+                    }
+                </div>}
+                {data.products.length === 0 && <NoProductsFound />}
             </div>
         </Layout>
     );

@@ -44,8 +44,6 @@ export default function Register() {
 
         setState({ ...state, loading: true, })
 
-        console.log(state);
-
         try {
 
             let config = {

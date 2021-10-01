@@ -7,6 +7,7 @@ import CardCollection from '../../components/public/Home/CardCollection';
 import Layout from '../../components/public/Layout';
 import '../styles/app.css'
 import axios from 'axios';
+import NoProductsFound from '../../components/public/NoProductsFound';
 
 const nav = {
     categories: [
@@ -88,7 +89,7 @@ export default function Home() {
         })
         try {
             const response = await axios.get('http://localhost:8000/api/v1/products')
-            
+
             setData({
                 loading: false,
                 error: null,
@@ -108,8 +109,8 @@ export default function Home() {
         return (`Error: ${data.error.message}`)
     }
 
+    // change the cheapest for the most sold in the store
     const cheapest = data.products.sort((a, b) => a.price - b.price).slice(0, 4)
-
 
     return (
         <Layout>
@@ -118,7 +119,7 @@ export default function Home() {
                     <div className="storeImage w-full object-cover	bg-fixed bg-no-repeat flex-col flex items-center" >
                         <h1 className="text-white font-bold	capitalize text-6xl mt-20" >mid-season sale</h1>
                         <Link to="/products" className="bg-blue-700 w-40 rounded-md mt-4 p-2.5 flex justify-center items-center text-center text-white" >shop collection</Link>
-                        <div className="flex items-center justify-center gap-10 mt-10 text-white " >
+                        <div className="flex items-center justify-center gap-10 mt-10 text-white" >
                             {nav.categories.map(card => (
                                 <CardCollection
                                     key={card.id}
@@ -141,8 +142,7 @@ export default function Home() {
                         <ArrowRightIcon className="w-4 h-4" />
                     </Link>
                 </div>
-                <div className="flex items-center justify-center gap-12 mt-6" >
-
+                {data.products.length !== 0 && <div className="flex items-center justify-center gap-12 mt-6" >
                     {cheapest.map(card => (
                         <ProductCard
                             key={card.id}
@@ -154,8 +154,9 @@ export default function Home() {
                             image_alt={card.title}
                         />
                     ))}
-
                 </div>
+                }
+                {data.products.length === 0 && <NoProductsFound />}
             </div>
             <div className="bg-gray-50 border-t px-10 flex items-center py-28 gap-12" >
 
