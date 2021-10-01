@@ -2,7 +2,7 @@ import React from 'react';
 import Input from './Input';
 import LinkForms from './LinkForms';
 
-export default function LoginForm({ onChange, onSubmit, formValues, children }) {
+export default function LoginForm({ onChange, onSubmit, formValues, children, errors }) {
 
     return (
         <React.Fragment>
@@ -25,8 +25,7 @@ export default function LoginForm({ onChange, onSubmit, formValues, children }) 
                     value={formValues.password}
                     onChange={onChange}
                 />
-                <div className="flex items-center justify-between">
-                </div>
+                {errors && <div className="text-center text-red-400">{errors}</div>}
                 <div>
                     {children}
                 </div>

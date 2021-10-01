@@ -4,7 +4,8 @@ import ButtonLog from '../../components/auth/ButtonLog'
 import Animation from '../../components/auth/Animation';
 import ContainerHeader from '../../components/auth/ContainerHeader';
 import { Redirect } from 'react-router';
-import getCookie from '../../components/auth/helpers/getCookie';
+// import getCookie from '../../components/auth/helpers/getCookie';
+import axios from 'axios';
 
 
 export default function Login() {
@@ -39,26 +40,23 @@ export default function Login() {
         try {
 
             let config = {
-                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
-                    'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
+                    // 'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
                 },
-                body: JSON.stringify(state.form),
             }
 
-            let res = await fetch('http://localhost:8000/api/login', config)
-            let json = await res.json()
+            let res = await axios.post('http://localhost:8000/api/login', state.form, config)
 
-            localStorage.setItem('token', JSON.stringify(json))
+            localStorage.setItem('user', JSON.stringify(res.data))
 
             setState({ loading: false, error: null, redirect: true })
 
 
         } catch (error) {
 
-            setState({ ...state, loading: false, error: error, redirect:false})
+            setState({ ...state, loading: false, error: error.response.data.message, redirect: false })
 
         }
     }
@@ -79,6 +77,7 @@ export default function Login() {
                                 onChange={handleChange}
                                 onSubmit={handleSubmit}
                                 formValues={state.form}
+                                errors={state.error}
                             >
                                 <ButtonLog
                                     text={'sign up'}

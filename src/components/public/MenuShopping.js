@@ -7,6 +7,9 @@ import ItemShopping from '../private/ItemShopping';
 
 const productsInTheBag = JSON.parse(localStorage.getItem('bag'))
 
+
+
+
 // const uniqueId = []
 
 // productsInTheBag.forEach(e => uniqueId.push(e.id));

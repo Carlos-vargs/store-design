@@ -1,10 +1,11 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import RegisterForm from '../../components/auth/RegisterForm';
 import ButtonLog from '../../components/auth/ButtonLog'
 import Animation from '../../components/auth/Animation';
 import ContainerHeader from '../../components/auth/ContainerHeader';
 import { Redirect } from 'react-router';
-import getCookie from '../../components/auth/helpers/getCookie';
+// import getCookie from '../../components/auth/helpers/getCookie';
+import axios from 'axios';
 
 export default function Register() {
 
@@ -32,9 +33,9 @@ export default function Register() {
     }
 
 
-    useEffect(() => {
-        fetch('http://localhost:8000/sanctum/csrf-cookie')
-    }, []);
+    // useEffect(() => {
+    //     fetch('http://localhost:8000/sanctum/csrf-cookie')
+    // }, []);
 
 
     const handleSubmit = async e => {
@@ -48,19 +49,16 @@ export default function Register() {
         try {
 
             let config = {
-                method: 'POST',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
-                    'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
+                    // 'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
                 },
-                body: JSON.stringify(state.form),
             }
 
-            let res = await fetch('http://localhost:8000/api/register', config)
-            let json = await res.json()
+            let res = await axios.post('http://localhost:8000/api/register', state.form ,config)
 
-            localStorage.setItem('token', JSON.stringify(json))
+            localStorage.setItem('user', JSON.stringify(res.data))
 
             setState({ loading: false, error: null, redirect: true })
 

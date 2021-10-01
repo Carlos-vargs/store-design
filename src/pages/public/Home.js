@@ -6,6 +6,7 @@ import CardService from '../../components/public/Home/CardService';
 import CardCollection from '../../components/public/Home/CardCollection';
 import Layout from '../../components/public/Layout';
 import '../styles/app.css'
+import axios from 'axios';
 
 const nav = {
     categories: [
@@ -61,6 +62,9 @@ const nav = {
 
 export default function Home() {
 
+    const productsInTheBag = JSON.parse(localStorage.getItem('bag'))
+
+
     const [data, setData] = useState({
         loading: true,
         error: null,
@@ -72,6 +76,10 @@ export default function Home() {
         fetchProducts()
     }, [])
 
+    if (!productsInTheBag) {
+        localStorage.setItem('bag', JSON.stringify([]))
+    }
+
     async function fetchProducts() {
         setData({
             loading: true,
@@ -79,13 +87,12 @@ export default function Home() {
             products: [],
         })
         try {
-            const data = await fetch('http://localhost:8000/api/v1/products')
-            const response = await data.json()
-
+            const response = await axios.get('http://localhost:8000/api/v1/products')
+            
             setData({
                 loading: false,
                 error: null,
-                products: response.data,
+                products: response.data.data,
             })
 
         } catch (error) {
@@ -101,8 +108,8 @@ export default function Home() {
         return (`Error: ${data.error.message}`)
     }
 
-    const cheapest = data.products.sort((a, b) =>  a.price - b.price).slice(0,4)
-    
+    const cheapest = data.products.sort((a, b) => a.price - b.price).slice(0, 4)
+
 
     return (
         <Layout>
