@@ -39,7 +39,6 @@ Route::apiResource('v1/products', ProductController::class)
     ]);
 
 Route::get('v1/products/search/{title}', [ProductController::class, 'search']);
-// Route::get('v1/products/buy', [ProductController::class, 'buy']);
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
