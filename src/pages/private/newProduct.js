@@ -1,9 +1,12 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import { Redirect } from 'react-router';
 import ButtonLog from '../../components/auth/ButtonLog';
 import ProductForm from '../../components/private/ProductForm';
 
 export default function newProduct() {
+
+    const user = JSON.parse(localStorage.getItem('user'))
 
     const [state, setState] = useState({
         loading: false,
@@ -36,19 +39,16 @@ export default function newProduct() {
         try {
 
             let config = {
-                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
-                    // 'X-CSRF-TOKEN': token
+                    'Authorization':`Bearer ${user.token}`
                 },
-                body: JSON.stringify(state.form),
             }
 
-            let res = await fetch('http://localhost:8000/api/v1/products', config)
-            let json = await res.json()
+            let res = await axios.post('http://localhost:8000/api/v1/products', state.form, config)
 
-            console.log(json);
+            console.log(res.data);
 
             setState({ loading: false, error: null, redirect: true })
 

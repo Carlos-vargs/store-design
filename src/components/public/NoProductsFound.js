@@ -13,9 +13,15 @@ export default function NoProductsFound() {
 
             </div>
             <div className="flex flex-col items-center justify-center" >
-                <b  >Sorry at the moment there are no products available. </b>
+                <b className="text-5xl" >OOPS!</b>
+                <span className="text-4xl text-center" >
+                    at the moment there are <br />
+                    no products available.
+                </span>
 
-                if you want to add new products you will need to register
+                <span className="mt-2 text-gray-600" >
+                    if you want to add new products you will need to register
+                </span>
 
             </div>
         </div>
