@@ -6,7 +6,7 @@ import InputFile from './InputFile';
 export default function ProductForm({ onSubmit, formValues, onChange, children }) {
     return (
         <Fragment>
-            <form onSubmit={onSubmit} className="mt-8 space-y-6">
+            <form onSubmit={onSubmit} className="space-y-6">
                 <Input
                     title={'Title'}
                     name={'title'}

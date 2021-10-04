@@ -1,13 +1,18 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router';
 import ButtonLog from '../../components/auth/ButtonLog';
 import ProductForm from '../../components/private/ProductForm';
-// import getCookie from '../../components/auth/helpers/getCookie';
+import ProductCard from '../../components/public/ProductCard';
 
 export default function newProduct() {
 
     const user = JSON.parse(localStorage.getItem('user'))
+
+    useEffect(() => {
+        localStorage.setItem('productImg', JSON.stringify(''))
+
+    }, []);
 
     const [state, setState] = useState({
         loading: false,
@@ -29,10 +34,17 @@ export default function newProduct() {
                 [e.target.name]: e.target.value
             }
         })
+
+        if (e.target.name === 'image') {
+            let file = e.target.files[0];
+            let url = URL.createObjectURL(file)
+
+            localStorage.setItem('productImg', JSON.stringify(url))
+
+        }
+
     }
 
-    // fetch('http://localhost:8000/sanctum/csrf-cookie')
-    
     const handleSubmit = async e => {
 
         setState({ ...state, loading: true, })
@@ -46,7 +58,7 @@ export default function newProduct() {
             let config = {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    'Authorization':`Bearer ${user.token}`,
+                    'Authorization': `Bearer ${user.token}`,
                 },
             }
 
@@ -68,9 +80,10 @@ export default function newProduct() {
         return <Redirect to="/products" />
     }
 
+    let getImg = JSON.parse(localStorage.getItem('productImg'))
 
     return (
-        <div className="flex items-center justify-center" >
+        <div className="w-full h-screen flex items-center justify-center gap-12" >
             <ProductForm
                 onChange={handleChange}
                 onSubmit={handleSubmit}
@@ -82,6 +95,14 @@ export default function newProduct() {
                     value={'Submit'}
                 />
             </ProductForm>
+
+            <ProductCard
+                title={state.form.title || 'Title'}
+                description={state.form.description || 'description'}
+                price={state.form.price || 'price'}
+                image_url={getImg}
+                image_alt={state.form.title || 'add some description'}
+            />
         </div >
     )
 }

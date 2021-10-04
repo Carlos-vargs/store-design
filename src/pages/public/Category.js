@@ -10,9 +10,6 @@ export default function Category() {
 
     const user = JSON.parse(localStorage.getItem('user'))
 
-    // const user = {}
-
-
     const [data, setData] = useState({
         loading: true,
         error: null,
@@ -61,7 +58,7 @@ export default function Category() {
                     <span className="text-gray-500 text-center" >Thoughtfully designed objects for the workspace, home and travel.</span>
                     {user.token && <Link to="/create/product" className="capitalize bg-blue-600 py-2 w-40 rounded-lg flex items-center justify-center text-white text-center" >create new product </Link>}
                 </div>
-                {data.products.length !== 0 && <div className="border-t flex justify-between gap-8 flex-wrap py-14" >
+                {data.products.length !== 0 && <div className="border-t flex justify-center gap-8 flex-wrap py-14" >
                     {data.products.map((card) => (
                         <ProductCard
                             key={card.id}
