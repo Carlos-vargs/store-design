@@ -31,6 +31,7 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
+        
         $request->validated();
 
         $product = Auth::user()->products()->create($request->all());
