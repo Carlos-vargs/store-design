@@ -12,7 +12,7 @@ export default function InputFile({title, name, type, value, onChange}) {
                             className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
                         >
                             <span>Upload a file</span>
-                            <input name={name} type={type} className="sr-only" value={value} onChange={onChange} required re="true"/>
+                            <input name={name} type={type} className="sr-only" value={value} onChange={onChange}/>
                         </label>
                         <p className="pl-1">or drag and drop</p>
                     </div>

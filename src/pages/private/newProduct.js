@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Redirect } from 'react-router';
 import ButtonLog from '../../components/auth/ButtonLog';
 import ProductForm from '../../components/private/ProductForm';
+// import getCookie from '../../components/auth/helpers/getCookie';
 
 export default function newProduct() {
 
@@ -30,23 +31,26 @@ export default function newProduct() {
         })
     }
 
+    // fetch('http://localhost:8000/sanctum/csrf-cookie')
+    
     const handleSubmit = async e => {
 
         setState({ ...state, loading: true, })
 
         e.preventDefault()
 
+        const form = new FormData(e.target)
+
         try {
 
             let config = {
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'Authorization':`Bearer ${user.token}`
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization':`Bearer ${user.token}`,
                 },
             }
 
-            let res = await axios.post('http://localhost:8000/api/v1/products', state.form, config)
+            let res = await axios.post('http://localhost:8000/api/v1/products', form, config)
 
             console.log(res.data);
 
@@ -61,7 +65,7 @@ export default function newProduct() {
     }
 
     if (state.redirect) {
-        return <Redirect to="/" />
+        return <Redirect to="/products" />
     }
 
 

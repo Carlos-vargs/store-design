@@ -4,7 +4,6 @@ import ButtonLog from '../../components/auth/ButtonLog'
 import Animation from '../../components/auth/Animation';
 import ContainerHeader from '../../components/auth/ContainerHeader';
 import { Redirect } from 'react-router';
-// import getCookie from '../../components/auth/helpers/getCookie';
 import axios from 'axios';
 
 
