@@ -1,4 +1,5 @@
 import { Menu } from '@headlessui/react';
+import { XCircleIcon } from '@heroicons/react/solid';
 import React from 'react';
 
 export default function ItemShopping({ image_url, title, description, price}) {
@@ -15,8 +16,10 @@ export default function ItemShopping({ image_url, title, description, price}) {
                     </div>
                     <div className="text-gray-800">${price}</div>
                 </div>
-                <button className="hover:bg-green-500 border transition capitalize px-2 h-8 hover:text-white  rounded-lg text-gray-800" >buy now</button>
-                <button className="hover:bg-red-500 transition border capitalize px-2 h-8 hover:text-white rounded-lg text-gray-800" >delete</button>
+                <XCircleIcon
+                className="w-8 h-8 text-red-500"
+
+                />
             </div>
         </Menu.Item>
     );

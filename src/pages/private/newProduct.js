@@ -1,6 +1,8 @@
+import { XCircleIcon } from '@heroicons/react/solid';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router';
+import { Link } from 'react-router-dom'
 import ButtonLog from '../../components/auth/ButtonLog';
 import ProductForm from '../../components/private/ProductForm';
 import ProductCard from '../../components/public/ProductCard';
@@ -8,10 +10,10 @@ import ProductCard from '../../components/public/ProductCard';
 export default function newProduct() {
 
     const user = JSON.parse(localStorage.getItem('user'))
+    const getImg = JSON.parse(localStorage.getItem('productImg'))
 
     useEffect(() => {
         localStorage.setItem('productImg', JSON.stringify(''))
-
     }, []);
 
     const [state, setState] = useState({
@@ -44,6 +46,7 @@ export default function newProduct() {
         }
 
     }
+
 
     const handleSubmit = async e => {
 
@@ -80,10 +83,8 @@ export default function newProduct() {
         return <Redirect to="/products" />
     }
 
-    let getImg = JSON.parse(localStorage.getItem('productImg'))
-
     return (
-        <div className="w-full h-screen flex items-center justify-center gap-12" >
+        <div className="py-28 flex items-start justify-center gap-12" >
             <ProductForm
                 onChange={handleChange}
                 onSubmit={handleSubmit}
@@ -103,6 +104,13 @@ export default function newProduct() {
                 image_url={getImg}
                 image_alt={state.form.title || 'add some description'}
             />
+
+            <Link to='/products' title="Return to the previous page" onClick={() => {
+                localStorage.setItem('productImg', JSON.stringify(''))
+                URL.revokeObjectURL(getImg)
+            }} >
+                <XCircleIcon className="w-9 h-9 text-red-500 hover:text-red-700 " />
+            </Link>
         </div >
     )
 }

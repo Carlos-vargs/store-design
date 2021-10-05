@@ -8,8 +8,6 @@ import ItemShopping from '../private/ItemShopping';
 const productsInTheBag = JSON.parse(localStorage.getItem('bag'))
 
 
-
-
 // const uniqueId = []
 
 // productsInTheBag.forEach(e => uniqueId.push(e.id));
@@ -27,6 +25,10 @@ const productsInTheBag = JSON.parse(localStorage.getItem('bag'))
 
 
 export default function MenuShopping() {
+
+    if (!productsInTheBag) {
+       localStorage.setItem('bag', JSON.stringify([])) 
+    }
 
     return (
         <Fragment>
