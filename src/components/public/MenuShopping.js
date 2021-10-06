@@ -1,12 +1,9 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { Menu, Transition } from '@headlessui/react'
 import { ShoppingBagIcon } from '@heroicons/react/outline'
 import { Link } from 'react-router-dom';
 import '../../pages/styles/app.css'
 import ItemShopping from '../private/ItemShopping';
-
-const productsInTheBag = JSON.parse(localStorage.getItem('bag'))
-
 
 // const uniqueId = []
 
@@ -18,17 +15,42 @@ const productsInTheBag = JSON.parse(localStorage.getItem('bag'))
 
 // console.log(result);
 
-// let hash = {};
-// const data = productsInTheBag.filter(o => hash[o.id] ? false : hash[o.id] = true);
-// console.log(data);
-
-
+// console.log(addAllProducts);
 
 export default function MenuShopping() {
 
+    const productsInTheBag = JSON.parse(localStorage.getItem('bag'))
+
     if (!productsInTheBag) {
-       localStorage.setItem('bag', JSON.stringify([])) 
+        localStorage.setItem('bag', JSON.stringify([]))
     }
+
+    let hash = {}
+
+    const data = productsInTheBag.filter(o => hash[o.id] ? false : hash[o.id] = true)
+
+
+    if (!productsInTheBag) {
+        localStorage.setItem('bag', JSON.stringify([]))
+    }
+
+    const prices = []
+
+    productsInTheBag.forEach(e => prices.push(e.price))
+
+    const allE = []
+
+    let count = 0
+    productsInTheBag.forEach((e, i) => {
+        if (e.id === productsInTheBag[i].id) {
+            allE.push({
+                product: e,
+                counter: count++
+            });   
+           }
+    });
+
+    // console.log(allE);
 
     return (
         <Fragment>
@@ -58,18 +80,19 @@ export default function MenuShopping() {
                             leaveTo="transform opacity-0 scale-95"
                         >
 
-                            <Menu.Items className=" h-72 overflow-auto scrollbarHidden  z-10 absolute right-0 w-max mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                {productsInTheBag.map(item => (
+                            <Menu.Items className=" h-72 overflow-auto scrollbarHidden flex flex-col justify-between z-10 absolute right-0 w-max mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                {data.map(item => (
                                     <ItemShopping
                                         image_url={item.image_url}
                                         title={item.title}
                                         description={item.description}
                                         price={item.price}
+                                        id={item.id}
                                         key={`${item.id}${Math.random()}`}
                                     />
                                 ))}
-                                <div className="p-5 flex items-center justify-center gap-4 ">
-                                    <span>total <span>$ 300</span></span>
+                                <div className="p-5 flex items-center justify-center gap-4">
+                                    <span>total ${productsInTheBag.length === 0 ? 0 : prices.reduce((acc, e) => acc + e)} </span>
                                     <button className="hover:bg-green-500 transition border capitalize px-2 h-8 hover:text-white rounded-lg text-gray-800" >buy all</button>
                                     <button className="hover:bg-red-500 transition border capitalize px-2 h-8 hover:text-white rounded-lg text-gray-800" >delete all</button>
                                 </div>

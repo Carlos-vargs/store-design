@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { HeartIcon } from '@heroicons/react/solid'
 import '../styles/app.css'
 import Layout from '../../components/public/Layout';
+import axios from 'axios';
 
 let oldBag = JSON.parse(localStorage.getItem('bag'))
 
@@ -30,13 +31,12 @@ export default function Product() {
             product: [],
         })
         try {
-            const data = await fetch(`http://localhost:8000/api/v1/products/${id}`)
-            const response = await data.json()
+            const response = await axios(`http://localhost:8000/api/v1/products/${id}`)
 
             setData({
                 loading: false,
                 error: null,
-                product: response.data,
+                product: response.data.data,
             })
 
         } catch (error) {
@@ -50,11 +50,19 @@ export default function Product() {
 
     function reload(){window.location.reload(true)}
 
+
     function setItemToLocalStorage(newProduct) {
 
-        localStorage.setItem('bag', JSON.stringify([...oldBag, newProduct]))
+        oldBag.forEach((e) => {
+            if (e.id === newProduct.id) {
+                console.log('ya hay un elemento');
+            }
+        });
+    
 
-        reload()
+        // localStorage.setItem('bag', JSON.stringify([...oldBag, newProduct]))
+
+        // reload()
     }
 
     if (data.error) {
@@ -71,7 +79,7 @@ export default function Product() {
                         </div>
                     </div>
                     <div className="flex flex-col" >
-                        <div className="flex flex-col gap-4" >
+                        <div className="flex flex-col gap-4 justify-between	" style={{ minHeight: '320px'}}>
                             <h1 className="capitalize text-4xl font-extrabold" >{data.product.title}</h1>
                             <h2 className="text-3xl">${data.product.price}</h2>
                             <span>rate</span>

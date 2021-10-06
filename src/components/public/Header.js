@@ -2,6 +2,8 @@ import React from 'react';
 import Logo from '../app/Logo';
 import { Link } from 'react-router-dom';
 import MenuShopping from './MenuShopping';
+import { LogoutIcon } from '@heroicons/react/outline';
+import axios from 'axios';
 
 const navigation = {
 	categories: [
@@ -21,7 +23,37 @@ const navigation = {
 }
 
 
+
 export default function Header() {
+
+	const data = JSON.parse(localStorage.getItem('user'))
+
+	if (!data) {
+		localStorage.setItem('user', JSON.stringify({}))
+	}
+
+	async function logout() {
+
+		try {
+
+			let config = {
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded',
+					'Authorization': `Bearer ${data.token}`,
+				}
+			}
+
+			await axios.post('http://localhost:8000/api/logout', null, config)
+
+		} catch (error) {
+			console.error(error);
+		}
+
+		localStorage.setItem('user', JSON.stringify({}))
+		window.location.reload(true)
+
+	}
+
 
 	return (
 		<React.Fragment>
@@ -30,10 +62,21 @@ export default function Header() {
 					<div className="">
 						current country
 					</div>
-					<div className="flex gap-4">
-						<Link to="/login" >Sing in</Link>
-						<Link to="/register" >Register</Link>
-					</div>
+					{
+						!data.token
+							? <div className="flex gap-4">
+								<Link to="/login" >Sing in</Link>
+								<Link to="/register" >Register</Link>
+							</div>
+							: <div className="cursor-pointer flex items-center justify-center gap-2 text-gray-700" >
+								<span>
+									{`${data.user.first_name} ${data.user.last_name}`}
+								</span>
+								<span title="Logout" >
+									<LogoutIcon className="w-5 h-5" onClick={() => logout()} />
+								</span>
+							</div>
+					}
 				</div>
 				<div className="w-full mx-auto py-6 px-10 ">
 					<div className="flex items-center justify-between cursor-pointer text-gray-700" >
@@ -54,18 +97,10 @@ export default function Header() {
 						</ul>
 
 						<ul className="flex items-center gap-6 capitalize cursor-pointer text-gray-700" >
-							<li>search</li>
+							<li><Link to="/products">search</Link></li>
 							<li>help</li>
 							<li className="w-10 items-center gap-2 flex" >
 								<div className="flow-root">
-									{/* <Link to="#" className="group -m-2 p-2 flex items-center">
-									<ShoppingBagIcon
-										className="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
-										aria-hidden="true"
-									/>
-									<span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
-									<span className="sr-only">items in the shopping car, view bag</span>
-								</Link> */}
 									<MenuShopping />
 								</div>
 							</li>
