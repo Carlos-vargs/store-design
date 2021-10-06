@@ -6,11 +6,12 @@ import '../styles/app.css'
 import Layout from '../../components/public/Layout';
 import axios from 'axios';
 
-let oldBag = JSON.parse(localStorage.getItem('bag'))
 
 
 export default function Product() {
-
+    
+    let oldBag = JSON.parse(localStorage.getItem('bag'))
+    
     const { id } = useParams()
 
     const [data, setData] = useState({
@@ -55,14 +56,14 @@ export default function Product() {
 
         oldBag.forEach((e) => {
             if (e.id === newProduct.id) {
-                console.log('ya hay un elemento');
+                
             }
         });
     
+        localStorage.setItem('bag', JSON.stringify([...oldBag, {product: newProduct, count: 1}]))
 
-        // localStorage.setItem('bag', JSON.stringify([...oldBag, newProduct]))
 
-        // reload()
+        reload()
     }
 
     if (data.error) {

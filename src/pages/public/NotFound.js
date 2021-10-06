@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Layout from '../../components/public/Layout';
 
 export default function NotFound() {
+
     return (
         <Layout>
             <div className="flex justify-center items-center flex-col gap-4 p-28" >

@@ -8,7 +8,7 @@ export default function CardService({ icon, title, paragraph }) {
                 <div className="flex items-center justify-center border rounded-full border-gray-200 w-14 h-14">
                     <div className="flex items-center justify-center border rounded-full border-gray-200 w-12 h-12">
                         <div className="flex items-center justify-center border rounded-full border-gray-200 w-10 h-10">
-                            <span className="w-12 h-12 text-blue-400 shadows flex items-center justify-center">{parse(icon)}</span>
+                            <span className="w-10 h-10 text-blue-400 shadows flex items-center justify-center">{parse(icon)}</span>
                         </div>
                     </div>
                 </div>
