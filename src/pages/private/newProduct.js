@@ -54,6 +54,8 @@ export default function newProduct() {
 
         e.preventDefault()
 
+        localStorage.removeItem('productImg')
+
         const form = new FormData(e.target)
 
         try {
@@ -106,8 +108,9 @@ export default function newProduct() {
             />
 
             <Link to='/products' title="Return to the previous page" onClick={() => {
-                localStorage.setItem('productImg', JSON.stringify(''))
+                localStorage.removeItem('productImg')
                 URL.revokeObjectURL(getImg)
+                
             }} >
                 <XCircleIcon className="w-9 h-9 text-red-500 hover:text-red-700 " />
             </Link>

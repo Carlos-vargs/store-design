@@ -80,7 +80,7 @@ export default function MenuShopping() {
                         className="fixed inset-0 z-10 overflow-y-auto"
                         onClose={closeModal}
                     >
-                        <div className="min-h-screen text-center">
+                        <div className="min-h-screen text-left cursor-pointer">
                             <Transition.Child
                                 as={Fragment}
                                 enter="ease-out duration-300"
@@ -120,9 +120,9 @@ export default function MenuShopping() {
                                                 <button className="hover:bg-green-500 transition border capitalize px-2 h-8 hover:text-white rounded-lg text-gray-800" >buy all</button>
                                                 <button className="hover:bg-red-500 transition border capitalize px-2 h-8 hover:text-white rounded-lg text-gray-800" >delete all</button>
                                             </div>
-                                            : <div className="flex items-center justify-center flex-col">
+                                            : <div className="flex items-center justify-center flex-col gap-2 p-5">
                                                 <span>You have not selected any products yet</span>
-                                                <Link to="/products" className="bg-blue-400 rounded-lg text-white flex items-center justify-center gap-2">
+                                                <Link to="/products" className="bg-blue-400 p-2 rounded-lg text-white flex items-center justify-center gap-2">
                                                     <span>Find out products </span>
                                                     <ShoppingCartIcon className="w-6 h-6" />
                                                 </Link>

@@ -10,6 +10,7 @@ export default function Category() {
 
     const user = JSON.parse(localStorage.getItem('user'))
 
+
     const [data, setData] = useState({
         loading: true,
         error: null,
