@@ -5,38 +5,28 @@ import { Link } from 'react-router-dom';
 import '../../pages/styles/app.css'
 import ItemShopping from '../private/ItemShopping';
 
-// const uniqueId = []
-
-// productsInTheBag.forEach(e => uniqueId.push(e.id));
-
-// const result = uniqueId.filter((item, index) => {
-//     return uniqueId.indexOf(item) === index;
-// })
-
-// console.log(result);
-
-// console.log(addAllProducts);
-
 export default function MenuShopping() {
 
     const productsInTheBag = JSON.parse(localStorage.getItem('bag'))
 
     if (!productsInTheBag) {
-        localStorage.setItem('bag', JSON.stringify([]))
+        localStorage.setItem(`bag`, JSON.stringify([]))
     }
 
     let hash = {}
 
-    const data = productsInTheBag.filter(o => hash[o.product.id] ? false : hash[o.product.id] = true)
-
-    if (!productsInTheBag) {
-        localStorage.setItem('bag', JSON.stringify([]))
-    }
+    const data = productsInTheBag.sort((a, b) =>  a.id === b.id ? b.count - a.count : a - b).filter(o => hash[o.product.id] ? false : hash[o.product.id] = true)
 
     const prices = []
+    const countProducts = []
 
-    productsInTheBag.forEach(e => prices.push(e.product.price))
+    data.forEach(e => prices.push(e.count * e.product.price))
 
+    data.forEach(e => countProducts.push(e.count))
+
+    const reducer =array => array.reduce((acc, e) => acc + e, 0)
+
+//    const totalProduct = countProducts.reduce((acc, e) => acc + e, 0)
 
     let [isOpen, setIsOpen] = useState(false)
 
@@ -48,21 +38,6 @@ export default function MenuShopping() {
         setIsOpen(true)
     }
 
-
-    // const allE = []
-
-    // let count = 0
-    // productsInTheBag.forEach((e, i) => {
-    //     if (e.id === productsInTheBag[i].id) {
-    //         allE.push({
-    //             product: e,
-    //             counter: count++
-    //         });
-    //     }
-    // });
-
-    // console.log(allE);
-
     return (
         <Fragment>
             <div className="text-right">
@@ -71,7 +46,7 @@ export default function MenuShopping() {
                         className="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
                         aria-hidden="true"
                     />
-                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">{productsInTheBag.length}</span>
+                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">{reducer(countProducts)}</span>
                     <span className="sr-only">items in the shopping car, view bag</span>
                 </button>
                 {productsInTheBag && <Transition appear show={isOpen} as={Fragment}>
@@ -116,7 +91,7 @@ export default function MenuShopping() {
                                     {
                                         data.length !== 0
                                             ? <div className="p-5 flex items-center justify-center gap-4">
-                                                <span>total ${productsInTheBag.length === 0 ? 0 : prices.reduce((acc, e) => acc + e)} </span>
+                                                <span>total ${data.length === 0 ? 0 : reducer(prices)} </span>
                                                 <button className="hover:bg-green-500 transition border capitalize px-2 h-8 hover:text-white rounded-lg text-gray-800" >buy all</button>
                                                 <button className="hover:bg-red-500 transition border capitalize px-2 h-8 hover:text-white rounded-lg text-gray-800" >delete all</button>
                                             </div>

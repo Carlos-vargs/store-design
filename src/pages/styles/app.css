@@ -8,6 +8,10 @@
     width: 0;
 }
 
+.border-text{
+    -webkit-text-stroke: 1px black;
+}
+
 .shortenText{
     text-overflow: ellipsis;
     white-space: nowrap;

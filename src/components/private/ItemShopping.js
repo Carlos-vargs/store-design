@@ -11,8 +11,6 @@ export default function ItemShopping({ image_url, title, description, price, id,
 
         productsInTheBag.forEach((e, i) => {
 
-            let count = 0
-
             if (e.product.id === currentId) {
 
                 productsInTheBag.splice(i, 1)
@@ -23,7 +21,6 @@ export default function ItemShopping({ image_url, title, description, price, id,
                 }, 100);
 
             }
-
 
         });
 
@@ -41,6 +38,7 @@ export default function ItemShopping({ image_url, title, description, price, id,
                 </div>
                 <div className="text-gray-800">${price}</div>
             </div>
+            <div className="w-12 rounded-lg pl-4 text-base  border border-gray-300 focus:outline-none">{count}</div>
             {/* <input
                 className="w-12 rounded-lg pl-4 text-base  border border-gray-300 focus:outline-none "
                 type='number'

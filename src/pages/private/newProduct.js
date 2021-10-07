@@ -54,8 +54,6 @@ export default function newProduct() {
 
         e.preventDefault()
 
-        localStorage.removeItem('productImg')
-
         const form = new FormData(e.target)
 
         try {
@@ -67,9 +65,9 @@ export default function newProduct() {
                 },
             }
 
-            let res = await axios.post('http://localhost:8000/api/v1/products', form, config)
+            await axios.post('http://localhost:8000/api/v1/products', form, config)
 
-            console.log(res.data);
+            localStorage.removeItem('productImg')
 
             setState({ loading: false, error: null, redirect: true })
 
@@ -110,7 +108,7 @@ export default function newProduct() {
             <Link to='/products' title="Return to the previous page" onClick={() => {
                 localStorage.removeItem('productImg')
                 URL.revokeObjectURL(getImg)
-                
+
             }} >
                 <XCircleIcon className="w-9 h-9 text-red-500 hover:text-red-700 " />
             </Link>

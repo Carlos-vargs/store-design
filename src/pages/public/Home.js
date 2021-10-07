@@ -69,7 +69,6 @@ export default function Home() {
 
     const productsInTheBag = JSON.parse(localStorage.getItem('bag'))
 
-
     const [data, setData] = useState({
         loading: true,
         error: null,
@@ -111,6 +110,10 @@ export default function Home() {
 
     if (data.error) {
         return (`Error: ${data.error.message}`)
+    }
+
+    if (data.products.length === 0) {
+        localStorage.setItem('bag', JSON.stringify([]))
     }
 
     // change the cheapest for the most sold in the store

@@ -10,7 +10,6 @@ export default function Category() {
 
     const user = JSON.parse(localStorage.getItem('user'))
 
-
     const [data, setData] = useState({
         loading: true,
         error: null,
@@ -49,6 +48,11 @@ export default function Category() {
     if (data.error) {
         return (`Error: ${data.error.message}`)
     }
+
+    if (data.products.length === 0) {
+        localStorage.setItem('bag', JSON.stringify([]))
+    }
+
 
 
     return (

@@ -14,7 +14,7 @@ export default function BodyCard({ title, description, price, image_url, image_a
                                 upload an image
                             </div>
                     }
-                    <b className="text-gray-800 absolute right-3.5 text-2xl bottom-3.5">{priceTwo && `$ ${priceTwo}`}</b>
+                    <b className="text-white border-text absolute right-3.5 text-2xl bottom-3.5">{priceTwo && `$ ${priceTwo}`}</b>
                 </div>
                 <div className="mt-4 capitalize flex flex-col gap-3">
                     <span className="text-gray-600" >{title}</span>

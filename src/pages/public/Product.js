@@ -27,8 +27,19 @@ export default function Product() {
 
 
     useEffect(() => {
+
+        // const olg = oldBag.sort((a, b) => {
+        //     if (a.id === b.id) {
+        //         return b.count - a.count
+        //     }
+
+        //     return a - b
+
+        // })
+        // console.log(olg);
+
         fetchProduct(id)
-    }, [id])
+    }, [id,])
 
     async function fetchProduct(paramsId) {
         setData({
@@ -62,22 +73,27 @@ export default function Product() {
 
     function setItemToLocalStorage(newProduct) {
 
-        oldBag.forEach((e) => {
-            if (e.id === newProduct.id) {
-                console.log('the same product twice');
+        let count = 1
+
+        oldBag.forEach((e, i) => {
+            if (e.product.id === newProduct.id) {
+                count++
             }
         });
 
-        localStorage.setItem('bag', JSON.stringify([...oldBag, { product: newProduct, count: 1 }]))
+        // oldBag.splice(, 1)
 
+        localStorage.setItem('bag', JSON.stringify([...oldBag, { product: newProduct, count: count }]))
 
         reload()
+
     }
 
     if (data.error) {
         return (`Error: ${data.error.message}`)
     }
-    //chnage cheapest products fot the best-selling products
+
+    //chnage cheapest products for the best-selling products
     const cheapest = data.products.sort((a, b) => a.price - b.price).slice(0, 4)
 
     return (
