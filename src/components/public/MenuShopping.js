@@ -15,7 +15,7 @@ export default function MenuShopping() {
 
     let hash = {}
 
-    const data = productsInTheBag.sort((a, b) =>  a.id === b.id ? b.count - a.count : a - b).filter(o => hash[o.product.id] ? false : hash[o.product.id] = true)
+    const data = productsInTheBag.sort((a, b) => a.id === b.id ? b.count - a.count : a - b).filter(o => hash[o.product.id] ? false : hash[o.product.id] = true)
 
     const prices = []
     const countProducts = []
@@ -24,9 +24,7 @@ export default function MenuShopping() {
 
     data.forEach(e => countProducts.push(e.count))
 
-    const reducer =array => array.reduce((acc, e) => acc + e, 0)
-
-//    const totalProduct = countProducts.reduce((acc, e) => acc + e, 0)
+    const reducer = array => array.reduce((acc, e) => acc + e, 0)
 
     let [isOpen, setIsOpen] = useState(false)
 
